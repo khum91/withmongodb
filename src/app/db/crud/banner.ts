@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import Banner from '../models/banner,model';
 import { connect } from '../mongodbconfig';
+import { filename } from '@/lib/stringmanipulation';
 // import { filename } from '@/components/lib/randomString';
 
 connect()
@@ -27,12 +28,17 @@ export type State = {
 
 export async function addBanner(prevState: State, formData: FormData) {
 
+    var iname = ''
+    const file = formData.get('image') as File
+    if (file && file.size > 0) {
+        iname = filename(file)
+    }
 
     const validatedFields = Add.safeParse({
         name: formData.get('name'),
         status: formData.get('status'),
         link: formData.get('link'),
-        image: 'testimage',
+        image: iname,
     });
 
     if (!validatedFields.success) {

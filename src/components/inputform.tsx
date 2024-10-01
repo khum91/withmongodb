@@ -6,6 +6,7 @@ import { Button } from "@/components/common/button"
 import { addBanner, State } from '@/app/db/crud/banner';
 import Swal from 'sweetalert2'
 import { redirect } from 'next/navigation';
+import { SingleImageUpload } from './common/image.Uploader';
 
 export default function Form() {
     const initialState: State = { message: null, errors: {} };
@@ -84,6 +85,19 @@ export default function Form() {
                                     ))}
                             </div>
                         </div>
+
+                        <div className="mb-4">
+              <div className='inline-flex items-start gap-5 w-full'>
+                <SingleImageUpload
+                  name='image'
+                  msg={state.errors?.image &&
+                    state.errors.image.map((error: string) => (
+                      error
+                    ))}
+                />
+              </div>
+            </div>
+
 
                     </div>
                     <div className="mt-6 flex justify-end gap-4">

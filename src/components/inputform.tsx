@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 
 export default function Form() {
     const initialState: State = { message: null, errors: {} };
-    const [state, formAction, setImage] = useFormState(addBanner, initialState);
+    const [state, formAction] = useFormState(addBanner, initialState);
     const [loading, setLoading] = useState<boolean>()
 
 

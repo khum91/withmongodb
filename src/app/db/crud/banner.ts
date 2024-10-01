@@ -1,9 +1,8 @@
 'use server';
-import { z } from 'zod';
-import { connect } from '../mongodbconfig';
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 import Banner from '../models/banner,model';
+import { connect } from '../mongodbconfig';
 // import { filename } from '@/components/lib/randomString';
 
 connect()
@@ -28,13 +27,12 @@ export type State = {
 
 export async function addBanner(prevState: State, formData: FormData) {
 
-    var iname = 'testimage'
 
     const validatedFields = Add.safeParse({
         name: formData.get('name'),
         status: formData.get('status'),
         link: formData.get('link'),
-        image: iname,
+        image: 'testimage',
     });
 
     if (!validatedFields.success) {

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import Banner from '../models/banner,model';
 import { connect } from '../mongodbconfig';
 import { filename } from '@/lib/stringmanipulation';
+import cloudinary from '../cloudinaryconfig';
 // import { filename } from '@/components/lib/randomString';
 
 connect()
@@ -47,10 +48,24 @@ export async function addBanner(prevState: State, formData: FormData) {
             message: 'Missing Fields. Failed to Add this item.',
         };
     }
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer)
+
     try {
+
         const { name, link, image } = validatedFields.data;
         const newItem = new Banner({ name, link, image });
         await newItem.save()
+
+        await cloudinary.uploader.upload_stream({ folder: 'thefarm', public_id: `${iname}` }).end(buffer);
+
+        // for delete
+        // await cloudinary.uploader.destroy('thefarm/ottQif25Y8oKxOgsIZFJ-6468.jpeg');
+
+        //for update
+        // await cloudinary.uploader.upload_stream({ folder: 'thefarm', public_id: 'ottQif25Y8oKxOgsIZFJ-6468.jpeg', overwrite: true }).end(buffer);
+
+
         revalidatePath('/');
         return ({
             message: "Banner updated successfully",

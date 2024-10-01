@@ -28,7 +28,7 @@ export type State = {
 
 export async function addBanner(prevState: State, formData: FormData) {
 
-    var iname = ''
+    let iname = ''
     const file = formData.get('image') as File
     if (file && file.size > 0) {
         iname = filename(file)

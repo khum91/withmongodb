@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ImageComponent } from "@/app/db/definitions";
-
 export const SingleImageUpload = ({ name, msg, imageUrl = null, }: ImageComponent) => {
     const [thumb, setThumb] = useState();
     return (<>
@@ -13,7 +12,6 @@ export const SingleImageUpload = ({ name, msg, imageUrl = null, }: ImageComponen
 
                     onChange={(e: any) => {
                         e.preventDefault();
-                        const name = e.target.name;
                         const image = e.target.files[0];
                         setThumb(image)
                     }}
@@ -23,6 +21,12 @@ export const SingleImageUpload = ({ name, msg, imageUrl = null, }: ImageComponen
                 </div>
 
             </div>
+            {/* <Image
+                src={thumb && typeof thumb === 'object' ? URL.createObjectURL(thumb) : (imageUrl && typeof imageUrl === 'string' ? imageUrl : 'https://placehold.co/150x100?text=Image not found')}
+                width={500}
+                height={500}
+                alt="uploaded image"
+            /> */}
             <img className="w-1/4" src={thumb && typeof thumb === 'object' ? URL.createObjectURL(thumb) : (imageUrl && typeof imageUrl === 'string' ? imageUrl : 'https://placehold.co/150x100?text=Image not found')} alt="uploaded image" />
         </div>
 

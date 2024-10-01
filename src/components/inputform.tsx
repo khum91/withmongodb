@@ -21,7 +21,7 @@ export default function Form() {
                 text: 'Added',
                 icon: "success",
             });
-            redirect('/dashboard/banner');
+            redirect('/');
         }
         setLoading(false)
     }, [state])
